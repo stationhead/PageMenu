@@ -424,7 +424,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
                 
                 let titleText : String = controllerTitle != nil ? controllerTitle! : "Menu \(Int(index) + 1)"
                 
-                let itemWidthRect : CGRect = (titleText as NSString).boundingRect(with: CGSize(width: 1000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
+                let itemWidthRect : CGRect = (titleText as NSString).boundingRect(with: CGSize(width: 1000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:menuItemFont], context: nil)
                 
                 menuItemWidth = itemWidthRect.width
                 
@@ -478,8 +478,8 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
                     var attributedString = NSMutableAttributedString(string: controller.title!)
                     let paragraphStyle = NSMutableParagraphStyle()
                     paragraphStyle.alignment = .center
-                    attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-                    attributedString.addAttribute(NSKernAttributeName, value: kerning, range: NSMakeRange(0, attributedString.length))
+                    attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+                    attributedString.addAttribute(NSAttributedStringKey.kern, value: kerning, range: NSMakeRange(0, attributedString.length))
                     menuItemView.titleLabel!.attributedText = attributedString
                 }
             } else {
@@ -488,8 +488,8 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
                     var attributedString = NSMutableAttributedString(string: controller.title!)
                     let paragraphStyle = NSMutableParagraphStyle()
                     paragraphStyle.alignment = .center
-                    attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-                    attributedString.addAttribute(NSKernAttributeName, value: kerning, range: NSMakeRange(0, attributedString.length))
+                    attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+                    attributedString.addAttribute(NSAttributedStringKey.kern, value: kerning, range: NSMakeRange(0, attributedString.length))
                     menuItemView.titleLabel!.attributedText = attributedString
                 }
             }
@@ -577,7 +577,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
             for (index, menuItem) in menuItems.enumerated() {
                 let controllerTitle = controllerArray[index].title!
                 
-                let itemWidthRect = controllerTitle.boundingRect(with: CGSize(width: 1000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
+                let itemWidthRect = controllerTitle.boundingRect(with: CGSize(width: 1000, height: 1000), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:menuItemFont], context: nil)
                 
                 menuItemWidth = itemWidthRect.width
                 
@@ -777,7 +777,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         }
     }
     
-    func scrollViewDidEndTapScrollingAnimation() {
+    @objc func scrollViewDidEndTapScrollingAnimation() {
         // Call didMoveToPage delegate function
         let currentController = controllerArray[currentPageIndex]
         delegate?.didMoveToPage?(currentController, index: currentPageIndex)
@@ -840,7 +840,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     
     // MARK: - Tap gesture recognizer selector
     
-    func handleMenuItemTap(_ gestureRecognizer : UITapGestureRecognizer) {
+    @objc func handleMenuItemTap(_ gestureRecognizer : UITapGestureRecognizer) {
         let tappedPoint : CGPoint = gestureRecognizer.location(in: menuScrollView)
         
         if tappedPoint.y < menuScrollView.frame.height {
