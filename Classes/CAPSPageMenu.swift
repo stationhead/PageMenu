@@ -74,6 +74,7 @@ public enum CAPSPageMenuOption {
     case useMenuLikeSegmentedControl(Bool)
     case menuItemSeparatorRoundEdges(Bool)
     case menuItemFont(UIFont)
+    case selectedMenuItemFont(UIFont)
     case menuItemSeparatorPercentageHeight(CGFloat)
     case menuItemWidth(CGFloat)
     case enableHorizontalBounce(Bool)
@@ -131,6 +132,16 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     open var menuItemSeparatorColor : UIColor = UIColor.lightGray
     
     open var menuItemFont : UIFont = UIFont.systemFont(ofSize: 15.0)
+    private var _selectedMenuItemFont: UIFont? = nil
+
+    open var selectedMenuItemFont : UIFont {
+        get {
+         return _selectedMenuItemFont ?? menuItemFont
+        }
+        set {
+          _selectedMenuItemFont = newValue
+        }
+      }
     open var menuItemSeparatorPercentageHeight : CGFloat = 0.2
     open var menuItemSeparatorWidth : CGFloat = 0.5
     open var menuItemSeparatorRoundEdges : Bool = false
@@ -228,6 +239,8 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
                     menuItemSeparatorRoundEdges = value
                 case let .menuItemFont(value):
                     menuItemFont = value
+                case let .selectedMenuItemFont(value):
+                    selectedMenuItemFont = value
                 case let .menuItemSeparatorPercentageHeight(value):
                     menuItemSeparatorPercentageHeight = value
                 case let .menuItemWidth(value):
@@ -517,6 +530,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         if menuItems.count > 0 {
             if menuItems[currentPageIndex].titleLabel != nil {
                 menuItems[currentPageIndex].titleLabel!.textColor = selectedMenuItemLabelColor
+                menuItems[currentPageIndex].titleLabel!.font = selectedMenuItemFont
             }
         }
         
@@ -831,6 +845,8 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
                     if self.menuItems[self.lastPageIndex].titleLabel != nil && self.menuItems[self.currentPageIndex].titleLabel != nil {
                         self.menuItems[self.lastPageIndex].titleLabel!.textColor = self.unselectedMenuItemLabelColor
                         self.menuItems[self.currentPageIndex].titleLabel!.textColor = self.selectedMenuItemLabelColor
+                        self.menuItems[self.lastPageIndex].titleLabel!.font = self.menuItemFont
+                        self.menuItems[self.currentPageIndex].titleLabel!.font = self.selectedMenuItemFont
                     }
                 }
             })
