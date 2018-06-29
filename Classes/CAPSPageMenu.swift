@@ -132,16 +132,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     open var menuItemSeparatorColor : UIColor = UIColor.lightGray
     
     open var menuItemFont : UIFont = UIFont.systemFont(ofSize: 15.0)
-    private var _selectedMenuItemFont: UIFont? = nil
-
-    open var selectedMenuItemFont : UIFont {
-        get {
-         return _selectedMenuItemFont ?? menuItemFont
-        }
-        set {
-          _selectedMenuItemFont = newValue
-        }
-      }
+    open var selectedMenuItemFont : UIFont = UIFont.systemFont(ofSize: 15.0)
     open var menuItemSeparatorPercentageHeight : CGFloat = 0.2
     open var menuItemSeparatorWidth : CGFloat = 0.5
     open var menuItemSeparatorRoundEdges : Bool = false
